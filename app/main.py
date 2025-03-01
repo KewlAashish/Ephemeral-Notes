@@ -4,7 +4,8 @@ from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-# Use the environment variable REDIS_HOST, default to 'redis'
+# Use the environment variable for the Redis host.
+# If not set, it defaults to 'redis'.
 db = redis.Redis(host=os.getenv('REDIS_HOST', 'redis'), port=6379, decode_responses=True)
 
 @app.route('/')
@@ -16,7 +17,7 @@ def add_note():
     data = request.json
     note_id = data.get('id')
     note_text = data.get('text')
-    expiry = int(data.get('expiry', 60))
+    expiry = int(data.get('expiry', 60))  # Default expiry: 60 seconds
     db.setex(note_id, expiry, note_text)
     return jsonify({'message': 'Note added', 'id': note_id, 'expiry': expiry})
 
