@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ephemeral Notes</title>
+</head>
+<body>
+    <h1>Ephemeral Notes</h1>
+    
+    <h2>Add a Note</h2>
+    <input type="text" id="noteText" placeholder="Enter your note">
+    <input type="number" id="expiry" placeholder="Expiry in seconds" value="60">
+    <button onclick="addNote()">Save Note</button>
+    
+    <h2>Retrieve a Note</h2>
+    <input type="text" id="noteId" placeholder="Enter Note ID">
+    <button onclick="getNote()">Fetch Note</button>
+    
+    <p id="output"></p>
+
+    <script>
+        async function addNote() {
+            const text = document.getElementById('noteText').value;
+            const expiry = document.getElementById('expiry').value;
+            const id = Math.random().toString(36).substr(2, 8);  // Generate random ID
+            
+            const response = await fetch('/add_note', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, text, expiry })
+            });
+
+            const data = await response.json();
+            document.getElementById('output').innerText = `Note saved! ID: ${data.id}`;
+        }
+
+        async function getNote() {
+            const id = document.getElementById('noteId').value;
+            
+            const response = await fetch(`/get_note/${id}`);
+            const data = await response.json();
+
+            document.getElementById('output').innerText = data.text || data.message;
+        }
+    </script>
+</body>
+</html>
