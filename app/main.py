@@ -4,9 +4,7 @@ from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-# Use the environment variable for the Redis host.
-# If not set, it defaults to 'redis'.
-db = redis.Redis(host=os.getenv('REDIS_HOST', 'redis'), port=6379, decode_responses=True)
+db = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 @app.route('/')
 def home():

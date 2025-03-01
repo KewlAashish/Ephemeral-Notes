@@ -1,22 +1,21 @@
-# Use an official Python runtime as a parent image
+# 1) Use Python base image
 FROM python:3.9-slim
 
-# Prevent Python from writing .pyc files to disc
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# 2) Install Redis
+RUN apt-get update && apt-get install -y redis-server
 
-# Set the working directory in the container
+# 3) Create a working directory
 WORKDIR /app
 
-# Install dependencies
+# 4) Copy requirements and install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the project code into the container
+# 5) Copy your application code
 COPY . /app/
 
-# Expose the port the app runs on
+# 6) Expose the Flask port
 EXPOSE 5000
 
-# Run the Flask app
-CMD ["python", "app/main.py"]
+# 7) Start Redis in the background, then run Flask
+CMD redis-server --daemonize yes && python app/main.py
