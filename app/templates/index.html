@@ -6,18 +6,21 @@
     <title>Ephemeral Notes</title>
 </head>
 <body>
-    <h1>Ephemeral Notes</h1>
-    
-    <h2>Add a Note</h2>
-    <input type="text" id="noteText" placeholder="Enter your note">
-    <input type="number" id="expiry" placeholder="Expiry in seconds" value="60">
-    <button onclick="addNote()">Save Note</button>
-    
-    <h2>Retrieve a Note</h2>
-    <input type="text" id="noteId" placeholder="Enter Note ID">
-    <button onclick="getNote()">Fetch Note</button>
-    
-    <p id="output"></p>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; background-color: #f9f9f9; padding: 30px; margin: 20px auto; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
+        <h1 style="font-size: 2.5em; color: #333; margin-bottom: 10px;">Ephemeral Notes</h1>
+        
+        <h2 style="font-size: 1.5em; color: #555; margin: 20px 0 10px;">Add a Note</h2>
+        <input type="text" id="noteText" placeholder="Enter your note" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 400px; box-sizing: border-box;">
+        <input type="number" id="expiry" placeholder="Expiry in seconds" value="60" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 400px; box-sizing: border-box;">
+        <button onclick="addNote()" style="padding: 10px 20px; border: none; background-color: #007BFF; color: #fff; border-radius: 4px; cursor: pointer; font-size: 1em;">Save Note</button>
+        
+        <h2 style="font-size: 1.5em; color: #555; margin: 20px 0 10px;">Retrieve a Note</h2>
+        <input type="text" id="noteId" placeholder="Enter Note ID" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 400px; box-sizing: border-box;">
+        <button onclick="getNote()" style="padding: 10px 20px; border: none; background-color: #28A745; color: #fff; border-radius: 4px; cursor: pointer; font-size: 1em;">Fetch Note</button>
+        
+        <p id="output" style="margin-top: 20px; color: #333; font-size: 1em;"></p>
+    </div>
+      
 
     <script>
         async function addNote() {
